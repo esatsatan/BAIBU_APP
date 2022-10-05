@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "336353030958",
+    "project_id": "flutterbaibu",
+    "storage_bucket": "flutterbaibu.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:336353030958:android:29e138e0e692a78a4900bf",
+        "android_client_info": {
+          "package_name": "com.baibu.computereng"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "336353030958-jj991ud536bc3qmlfvg2hb0lur80hjii.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYxVyafrEHVLkrexrbLEPm5RcRC6ZHreo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "336353030958-jj991ud536bc3qmlfvg2hb0lur80hjii.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
