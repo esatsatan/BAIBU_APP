@@ -66,7 +66,29 @@ class SuccessScreen extends StatelessWidget {
                             fontSize: 18,
                             fontWeight: FontWeight.bold),
                       ),
-                      buildLoginButton('Devam', context),
+                      Container(
+                        padding: EdgeInsets.symmetric(vertical: 25),
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          //elevation: 5,
+                          onPressed: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const StudentLogin(),
+                            ),
+                          ),
+                          //padding: EdgeInsets.all(15),
+                          //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                          //color: Color(0xff0364f6),
+                          child: Text(
+                            'text',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),

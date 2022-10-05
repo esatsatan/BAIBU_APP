@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_baibu/service/auth.dart';
 
 import '../adminscreens/AdminProfilScreens/tasarim/profile_pic.dart';
 import '../loginscreens/StudentLogin.dart';
@@ -8,6 +9,8 @@ import 'AboutScreen.dart';
 import 'EditProfile.dart';
 
 class ProfileScreen extends StatelessWidget {
+  AuthService _authService = AuthService();
+
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
@@ -95,11 +98,15 @@ class ProfileScreen extends StatelessWidget {
                         ),
                       ),
                       ListTile(
-                        onTap: () => Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => StudentLogin(),
-                          ),
-                        ),
+                        onTap: () {
+                          _authService.signOut();
+
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => StudentLogin(),
+                            ),
+                          );
+                        },
                         title: Text(
                           'Çıkış yap',
                           style: TextStyle(

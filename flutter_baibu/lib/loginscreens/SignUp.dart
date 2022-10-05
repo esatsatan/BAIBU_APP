@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_baibu/loginscreens/SuccessScreen.dart';
 import 'package:flutter_baibu/service/auth.dart';
 
 import 'StudentLogin.dart';
@@ -254,11 +255,20 @@ class _SignUpState extends State<SignUp> {
                         padding: EdgeInsets.symmetric(vertical: 25),
                         width: double.infinity,
                         child: ElevatedButton(
-                          onPressed: () => _authService.createPerson(
-                              _nameController.text,
-                              _secondnameController.text,
-                              _emailController.text,
-                              _passwordController.text),
+                          onPressed: () => _authService
+                              .createPerson(
+                                  _nameController.text,
+                                  _secondnameController.text,
+                                  _emailController.text,
+                                  _passwordController.text)
+                              .then((value) => {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              SuccessScreen()),
+                                    )
+                                  }),
                           child: Text(
                             'Kayıt ol',
                             style: TextStyle(
