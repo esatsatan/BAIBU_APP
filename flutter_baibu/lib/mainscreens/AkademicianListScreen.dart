@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -10,6 +11,15 @@ class AcademicianList extends StatefulWidget {
 
   @override
   State<AcademicianList> createState() => _AcademicianListState();
+}
+
+final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+Future getAllAcademician() async {
+  _firestore.collection("Academician").get().then(
+        (res) => print("Successfully completed"),
+        onError: (e) => print("Error completing: $e"),
+      );
 }
 
 class _AcademicianListState extends State<AcademicianList> {

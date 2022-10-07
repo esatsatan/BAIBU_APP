@@ -17,10 +17,12 @@ class _duyuruEkleState extends State<duyuruEkle> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future duyuruKaydet(String baslik, String duyuru) async {
-    final yayin = <String, String>{
+    final yayinlananDuyuru = <String, String>{
       'baslik': baslik,
       'icerik': duyuru,
     };
+
+    _firestore.collection("Announcement").add(yayinlananDuyuru);
   }
 
   @override
@@ -114,8 +116,7 @@ class _duyuruEkleState extends State<duyuruEkle> {
                               fontSize: 15, color: Colors.black),
                         ),
                         onPressed: () {
-                          var baslik = _duyurubaslik.text;
-                          var icerik = _duyuruIcerigi.text;
+                          duyuruKaydet(_duyurubaslik.text, _duyuruIcerigi.text);
 
                           Navigator.push(
                               context,
