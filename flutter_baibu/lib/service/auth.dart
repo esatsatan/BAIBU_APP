@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_baibu/adminscreens/AdminHomePage/adminHomePage.dart';
+import 'package:flutter_baibu/loginscreens/AdminLogin.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -31,5 +33,14 @@ class AuthService {
     });
 
     return user.user;
+  }
+
+  checkCurrentAdminUser() {
+    if (_auth.currentUser!.email == 'murat.beken@ibu.edu.tr' &&
+        _auth.currentUser != null) {
+      return adminHomePage();
+    } else {
+      AdminLogin();
+    }
   }
 }
