@@ -19,7 +19,6 @@ class _AdminLoginState extends State<AdminLogin> {
 
   @override
   Widget build(BuildContext context) {
-    _authService.checkCurrentAdminUser();
     return Scaffold(
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
