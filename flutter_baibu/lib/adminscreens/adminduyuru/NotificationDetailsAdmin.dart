@@ -3,9 +3,14 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_baibu/adminscreens/adminduyuru/DuyuruDuzenle.dart';
 
-class DetailScreenAdmin extends StatelessWidget {
-  const DetailScreenAdmin({Key? key}) : super(key: key);
+class DetailScreenAdmin extends StatefulWidget {
+  const DetailScreenAdmin({Key? key, required this.gelenVeri}) : super(key: key);
+    final Map gelenVeri;
+  @override
+  State<DetailScreenAdmin> createState() => _DetailScreenAdminState();
+}
 
+class _DetailScreenAdminState extends State<DetailScreenAdmin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,8 +44,8 @@ class DetailScreenAdmin extends StatelessWidget {
                       padding:
                           const EdgeInsets.only(top: 35, left: 10, bottom: 30),
                       child: Text(
-                        'Duyuru Baslik',
-                        style: TextStyle(
+                        widget.gelenVeri['baslik'].toString(),    
+                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -50,7 +55,7 @@ class DetailScreenAdmin extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 25, right: 25),
                       child: Text(
-                        'sdfsdfdfdfdfdfdfddfdfdfddffddfdfddfddddfddfdfdfdfssssssssssssssssssssssssssssssssssssssssssssssssssffffffffffffff',
+                        widget.gelenVeri['icerik'].toString(),
                         style: TextStyle(color: Colors.white, fontSize: 15),
                       ),
                     )

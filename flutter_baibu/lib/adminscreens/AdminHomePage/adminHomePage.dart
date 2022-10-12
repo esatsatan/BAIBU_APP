@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_baibu/adminscreens/adminduyuru/NotificationDetailsAdmin.dart';
@@ -15,6 +16,8 @@ class adminHomePage extends StatefulWidget {
 
 class _adminHomePageState extends State<adminHomePage> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final Stream<QuerySnapshot> _usersStream =
+      FirebaseFirestore.instance.collection('Announcement').snapshots();
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -29,10 +32,11 @@ class _adminHomePageState extends State<adminHomePage> {
             style: TextStyle(color: Colors.white),
           ),
           bottom: PreferredSize(
-            preferredSize: Size(6,50) ,
-             child: Column(
-                children: [
-                  Padding(padding: const EdgeInsets.all(7),
+            preferredSize: Size(6, 50),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(7),
                   child: Container(
                     height: 45,
                     decoration: BoxDecoration(
@@ -41,26 +45,23 @@ class _adminHomePageState extends State<adminHomePage> {
                     ),
                     child: TextFormField(
                       controller: controller,
-
-                      onFieldSubmitted: (convariant){
+                      onFieldSubmitted: (convariant) {
                         setState(() {
                           var text = convariant;
                         });
                       },
                       decoration: InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.search,
-                        ),
-                        hintText: 'ARAMA',
-                        hintStyle: TextStyle(fontSize: 15)
-                      ),
+                          prefixIcon: Icon(
+                            Icons.search,
+                          ),
+                          hintText: 'ARAMA',
+                          hintStyle: TextStyle(fontSize: 15)),
                     ),
                   ),
-                  ),
-                ],
+                ),
+              ],
             ),
-            ),
-
+          ),
           backgroundColor: Color(0xff151543),
         ),
         drawer: Drawer(
@@ -93,16 +94,29 @@ class _adminHomePageState extends State<adminHomePage> {
           ),
           backgroundColor: Color(0xff0364f6),
         ),
-        body:
-            ListView.builder(
-                itemCount: 60,
-                itemBuilder: (BuildContext context, int index) {
-                  return GestureDetector(
+        body: StreamBuilder<QuerySnapshot>(
+          stream: _usersStream,
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasError) {
+              return const Text('Something went wrong');
+            }
+
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Text("Loading");
+            }
+
+            return ListView(
+              children: snapshot.data!.docs
+                  .map((DocumentSnapshot document) {
+                    Map<String, dynamic> data =
+                        document.data()! as Map<String, dynamic>;
+                    return GestureDetector(
                     onTap: () => {
                     Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const DetailScreenAdmin()))
+                                builder: (context) => DetailScreenAdmin(gelenVeri: data,)))
                   },
                     child: Container(
                       height: 70,
@@ -137,9 +151,9 @@ class _adminHomePageState extends State<adminHomePage> {
                           ),
                           backgroundColor: Colors.white,
                         ),
-                        title: Text('Baslik',
+                        title: Text(data['baslik'].toString(),
                             style: TextStyle(color: Colors.black, fontSize: 15)),
-                        subtitle: Text('yayinlayan',
+                        subtitle: Text(data['yayinlayan'].toString(),
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 15,
@@ -147,7 +161,13 @@ class _adminHomePageState extends State<adminHomePage> {
                       ),
                     ),
                   );
-                }),
+
+                  })
+                  .toList()
+                  .cast(),
+            );
+          },
+        ),
         backgroundColor: Color(0xff151543),
       ),
     );
