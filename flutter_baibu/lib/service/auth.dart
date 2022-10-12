@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_baibu/adminscreens/AdminHomePage/adminHomePage.dart';
 import 'package:flutter_baibu/loginscreens/AdminLogin.dart';
+import 'package:flutter_baibu/loginscreens/StudentLogin.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -42,5 +43,26 @@ class AuthService {
     } else {
       AdminLogin();
     }
+  }
+
+  checkUser() {
+    _auth.authStateChanges().listen((User? user) {
+      if (user == null) {
+        print('user signed out');
+      } else {
+        print('User is signed in!');
+      }
+    });
+  }
+
+  Future<bool> verifyEmail() async {
+    bool isEmailverified = false;
+    return true;
+  }
+
+  void resetPasswordLink(String email) async {
+    User? user = _auth.currentUser;
+
+    await _auth.sendPasswordResetEmail(email: user!.email.toString());
   }
 }
