@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_baibu/adminscreens/adminduyuru/NotificationDetailsAdmin.dart';
 
 import '../../mainscreens/NotificationDetailScreen.dart';
 
@@ -79,16 +80,11 @@ class _adminHomePageState extends State<adminHomePage> {
                   ),
                 ),
                 myDrawerItems(
-                    Icons.library_books, 'Duyurularım.', "/Duyurularım"),
-                new Divider(
-                  color: Colors.black,
-                ),
-                myDrawerItems(
                     Icons.library_add, 'Duyuru Ekle.', "/Duyuru Ekle"),
                 new Divider(
                   color: Colors.black,
                 ),
-                myDrawerItems(Icons.account_circle, 'Profil.', "/Profil"),
+                myDrawerItems(Icons.login_outlined, 'Çıkış Yap.', "/Cıkıs Yap"),
                 new Divider(
                   color: Colors.black,
                 ),
@@ -106,7 +102,7 @@ class _adminHomePageState extends State<adminHomePage> {
                     Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const DetailScreen()))
+                                builder: (context) => const DetailScreenAdmin()))
                   },
                     child: Container(
                       height: 70,

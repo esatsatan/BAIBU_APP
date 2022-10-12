@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_baibu/adminscreens/AdminHomePage/adminHomePage.dart';
 
-import 'duyurularim.dart';
 
 class DuyuruDuzenleme extends StatelessWidget {
   const DuyuruDuzenleme({Key? key}) : super(key: key);
@@ -9,7 +9,7 @@ class DuyuruDuzenleme extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('DUYURU DUZENLE'),
+        title: Text('DUYURU GÜNCELLE'),
         backgroundColor: Color(0xff151543),
       ),
       body: SingleChildScrollView(child: 
@@ -46,7 +46,7 @@ class DuyuruDuzenleme extends StatelessWidget {
                 maxLines: 2,
                 decoration: InputDecoration(
                   border: InputBorder.none,
-                  hintText: 'Baslik Ekle...',
+                  hintText: 'Baslik Düzenle...',
                   hintStyle: TextStyle(
                     fontSize: 20,
                     color: Colors.black,
@@ -97,7 +97,7 @@ class DuyuruDuzenleme extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const duyurularim()));
+                                builder: (context) => const adminHomePage()));
                       },
                       child: Text(
                         'DUYURUNU DUZENLE',
