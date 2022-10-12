@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_baibu/adminscreens/AdminHomePage/adminHomePage.dart';
 
-import '../adminduyuru/duyurularim.dart';
 
 class duyuruEkle extends StatefulWidget {
   const duyuruEkle({Key? key}) : super(key: key);
@@ -121,7 +121,7 @@ class _duyuruEkleState extends State<duyuruEkle> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const duyurularim()));
+                                  builder: (context) => const adminHomePage()));
                         },
                         child: Text(
                           'DUYURUNU YAYINLA',
