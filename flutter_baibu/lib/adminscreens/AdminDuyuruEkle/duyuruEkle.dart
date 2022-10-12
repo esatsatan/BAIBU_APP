@@ -20,6 +20,7 @@ class _duyuruEkleState extends State<duyuruEkle> {
     final yayinlananDuyuru = <String, String>{
       'baslik': baslik,
       'icerik': duyuru,
+      'yayinlayan': '',
     };
 
     _firestore.collection("Announcement").add(yayinlananDuyuru);
