@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_baibu/adminscreens/AdminHomePage/adminHomePage.dart';
 
 
-class DuyuruDuzenleme extends StatelessWidget {
+class DuyuruDuzenleme extends StatefulWidget {
   const DuyuruDuzenleme({Key? key}) : super(key: key);
 
+
+  @override
+  State<DuyuruDuzenleme> createState() => _DuyuruDuzenlemeState();
+}
+
+class _DuyuruDuzenlemeState extends State<DuyuruDuzenleme> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
