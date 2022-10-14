@@ -73,14 +73,14 @@ class SuccessScreen extends StatelessWidget {
                           //elevation: 5,
                           onPressed: () => Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => const StudentLogin(),
+                              builder: (context) => StudentLogin(),
                             ),
                           ),
                           //padding: EdgeInsets.all(15),
                           //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                           //color: Color(0xff0364f6),
                           child: Text(
-                            'text',
+                            'Devam',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 18,

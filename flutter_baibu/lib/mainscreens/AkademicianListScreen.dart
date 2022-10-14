@@ -13,51 +13,66 @@ class AcademicianList extends StatefulWidget {
   State<AcademicianList> createState() => _AcademicianListState();
 }
 
-final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
-Future getAllAcademician() async {
-  _firestore.collection("Academician").get().then(
-        (res) => print("Successfully completed"),
-        onError: (e) => print("Error completing: $e"),
-      );
-}
-
 class _AcademicianListState extends State<AcademicianList> {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final Stream<QuerySnapshot> _usersStream =
+      FirebaseFirestore.instance.collection('Academician').snapshots();
+
+  /* Future getAllAcademician() async {
+    await _firestore
+        .collection('Academician')
+        .get()
+        .then((snaphot) => snaphot.docs.forEach((element) {
+              print(element.get('Email'));
+              print(element.get('Name'));
+              print(element.get('Phone'));
+
+              var names = element.get('Name');
+              var emails = element.get('Email');
+
+              name.add(names);
+              name.add(emails);
+            }));
+  }
+*/
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xff151543),
       drawer: NavigationDrawerWidget(),
       appBar: AppBar(
         title: Text('Akademisyenler'),
         backgroundColor: Color(0xff151543),
       ),
-      body: Stack(
-        children: [
-          Container(
-            height: double.infinity,
-            width: double.infinity,
-            color: Color(0xff151543),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 25,
-                ),
-                ListView(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  children: [
-                    AcademicianCard(
-                      name: ' Murat Beken',
-                      email: 'murat.beken@gmail.com',
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+      body: StreamBuilder<QuerySnapshot>(
+          stream: _usersStream,
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasError) {
+              return const Text('Something went wrong');
+            }
+
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Text("Loading");
+            }
+
+            return ListView(
+              children: snapshot.data!.docs
+                  .map((DocumentSnapshot document) {
+                    Map<String, dynamic> data =
+                        document.data()! as Map<String, dynamic>;
+                    return AcademicianCard(
+                      name: data['Name'] as String,
+                      email: data['Email'] as String,
+                    );
+                  })
+                  .toList()
+                  .cast(),
+            );
+          }),
     );
   }
 }

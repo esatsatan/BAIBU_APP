@@ -255,20 +255,21 @@ class _SignUpState extends State<SignUp> {
                         padding: EdgeInsets.symmetric(vertical: 25),
                         width: double.infinity,
                         child: ElevatedButton(
-                          onPressed: () => _authService
-                              .createPerson(
-                                  _nameController.text,
-                                  _secondnameController.text,
-                                  _emailController.text,
-                                  _passwordController.text)
-                              .then((value) => {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              SuccessScreen()),
-                                    )
-                                  }),
+                          onPressed: () {
+                            _authService.createPerson(
+                                _nameController.text,
+                                _secondnameController.text,
+                                _emailController.text,
+                                _passwordController.text);
+
+                            _authService.verifyEmail();
+
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SuccessScreen()),
+                            );
+                          },
                           child: Text(
                             'Kayıt ol',
                             style: TextStyle(

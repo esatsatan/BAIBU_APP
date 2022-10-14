@@ -55,8 +55,8 @@ class AuthService {
     });
   }
 
-  Future<bool> verifyEmail() async {
-    bool isEmailverified = false;
+  verifyEmail() async {
+    // bool isEmailverified = false;
     return true;
   }
 

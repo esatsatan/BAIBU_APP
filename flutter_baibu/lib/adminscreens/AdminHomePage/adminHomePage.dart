@@ -112,56 +112,58 @@ class _adminHomePageState extends State<adminHomePage> {
                     Map<String, dynamic> data =
                         document.data()! as Map<String, dynamic>;
                     return GestureDetector(
-                    onTap: () => {
-                    Navigator.push(
+                      onTap: () => {
+                        Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => DetailScreenAdmin(gelenVeri: data,)))
-                  },
-                    child: Container(
-                      height: 70,
-                      width: 15,
-                      margin: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.white,
-                              offset: const Offset(
-                                3.0,
-                                3.0,
-                              ),
-                              blurRadius: 7.0,
-                              spreadRadius: 1.0,
-                            ), //BoxShadow
-                            BoxShadow(
-                              color: Colors.white,
-                              offset: const Offset(0.0, 0.0),
-                              blurRadius: 0.0,
-                              spreadRadius: 0.0,
-                            ), //BoxShadow
-                          ]),
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          child: Image.asset(
-                            'images/birincilogo_3559696.png',
-                            height: 100,
-                            width: 100,
+                                builder: (context) => DetailScreenAdmin(
+                                      gelenVeri: data,
+                                    )))
+                      },
+                      child: Container(
+                        height: 70,
+                        width: 15,
+                        margin: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.white,
+                                offset: const Offset(
+                                  3.0,
+                                  3.0,
+                                ),
+                                blurRadius: 7.0,
+                                spreadRadius: 1.0,
+                              ), //BoxShadow
+                              BoxShadow(
+                                color: Colors.white,
+                                offset: const Offset(0.0, 0.0),
+                                blurRadius: 0.0,
+                                spreadRadius: 0.0,
+                              ), //BoxShadow
+                            ]),
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            child: Image.asset(
+                              'images/birincilogo_3559696.png',
+                              height: 100,
+                              width: 100,
+                            ),
+                            backgroundColor: Colors.white,
                           ),
-                          backgroundColor: Colors.white,
+                          title: Text(data['baslik'].toString(),
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 15)),
+                          subtitle: Text(data['yayinlayan'].toString(),
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 15,
+                              )),
                         ),
-                        title: Text(data['baslik'].toString(),
-                            style: TextStyle(color: Colors.black, fontSize: 15)),
-                        subtitle: Text(data['yayinlayan'].toString(),
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 15,
-                            )),
                       ),
-                    ),
-                  );
-
+                    );
                   })
                   .toList()
                   .cast(),

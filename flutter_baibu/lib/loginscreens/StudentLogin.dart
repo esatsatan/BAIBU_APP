@@ -10,7 +10,7 @@ import 'ResetPassword.dart';
 import 'SignUp.dart';
 
 class StudentLogin extends StatefulWidget {
-  const StudentLogin({Key? key}) : super(key: key);
+  // const StudentLogin({Key? key}) : super(key: key);
 
   @override
   _StudentLoginState createState() => _StudentLoginState();
@@ -341,16 +341,18 @@ class _StudentLoginState extends State<StudentLogin> {
                         width: double.infinity,
                         child: ElevatedButton(
                           //elevation: 5,
-                          onPressed: () => _authService
-                              .signIn(_emailCont.text, _passwordCont.text)
-                              .then((value) => {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const StudentHomeScreen(),
+                          onPressed: () {
+                            _authService
+                                .signIn(_emailCont.text, _passwordCont.text)
+                                .then((value) => {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const StudentHomeScreen(),
+                                        ),
                                       ),
-                                    ),
-                                  }),
+                                    });
+                          },
                           //padding: EdgeInsets.all(15),
                           //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                           //color: Color(0xff0364f6),
