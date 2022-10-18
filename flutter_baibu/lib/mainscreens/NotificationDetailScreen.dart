@@ -3,7 +3,8 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class DetailScreen extends StatelessWidget {
-  const DetailScreen({Key? key}) : super(key: key);
+  const DetailScreen({Key? key, required this.gelenVeri}) : super(key: key);
+  final Map gelenVeri;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +38,7 @@ class DetailScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 25, right: 25),
                       child: Text(
-                        'sdfsdfdfdfdfdfdfddfdfdfddffddfdfddfddddfddfdfdfdfssssssssssssssssssssssssssssssssssssssssssssssssssffffffffffffff',
+                        'sdfsdfdfdfdfdfdfddfdfdfddffddfdfddfddddfddfdfdfdfssssssssssssssssssssssssssssssssfffffffffffff',
                         style: TextStyle(color: Colors.white, fontSize: 15),
                       ),
                     )

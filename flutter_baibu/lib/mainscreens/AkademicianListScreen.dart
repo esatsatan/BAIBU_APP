@@ -20,24 +20,6 @@ class _AcademicianListState extends State<AcademicianList> {
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('Academician').snapshots();
 
-  /* Future getAllAcademician() async {
-    await _firestore
-        .collection('Academician')
-        .get()
-        .then((snaphot) => snaphot.docs.forEach((element) {
-              print(element.get('Email'));
-              print(element.get('Name'));
-              print(element.get('Phone'));
-
-              var names = element.get('Name');
-              var emails = element.get('Email');
-
-              name.add(names);
-              name.add(emails);
-            }));
-  }
-*/
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

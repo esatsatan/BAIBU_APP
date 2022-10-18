@@ -4,16 +4,17 @@ import '../mainscreens/NotificationDetailScreen.dart';
 
 class CardItem extends StatelessWidget {
   final String title;
-  final String time;
   final String publisher;
 
-  CardItem({required this.title, required this.time, required this.publisher});
+  CardItem({required this.title, required this.publisher});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => DetailScreen(),
+        builder: (context) => DetailScreen(
+          gelenVeri: {},
+        ),
       )),
       child: Container(
         margin: EdgeInsets.symmetric(
@@ -38,6 +39,7 @@ class CardItem extends StatelessWidget {
             Align(
               child: Row(
                 //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                 children: [
                   Container(
                     padding: EdgeInsets.all(3),
@@ -56,7 +58,7 @@ class CardItem extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(top: 40, left: 30),
                         child: Text(
-                          'Duyuru Başlığı',
+                          title,
                           style: TextStyle(
                             color: Colors.white,
                           ),
@@ -74,7 +76,7 @@ class CardItem extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            'Murat BEKEN ',
+                            publisher,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
