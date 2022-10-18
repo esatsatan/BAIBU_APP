@@ -18,13 +18,13 @@ class _DetailScreenAdminState extends State<DetailScreenAdmin> {
         title: Text('DUYURU'),
         actions: [
           IconButton(
-            icon: const Icon(Icons.update),
-            tooltip: 'Guncelle',
+            icon: const Icon(Icons.delete),
+            tooltip: 'Sil',
             onPressed: (() {
                Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const DuyuruDuzenleme()));
+                            builder: (context) => const DuyuruDuzenleme(duzenlenenVeri: {},)));
             }),
           )
         ],
