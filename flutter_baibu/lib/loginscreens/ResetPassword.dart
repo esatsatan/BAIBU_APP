@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_baibu/service/auth.dart';
@@ -15,7 +16,21 @@ class ResetPassword extends StatefulWidget {
 class _ResetPasswordState extends State<ResetPassword> {
   final _emailController = TextEditingController();
 
-  AuthService _auth = AuthService();
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _emailController.dispose();
+    super.dispose();
+  }
+
+  Future passwordReset() async {
+    try {
+      await FirebaseAuth.instance
+          .sendPasswordResetEmail(email: _emailController.text.trim());
+    } on FirebaseAuthException catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +127,12 @@ class _ResetPasswordState extends State<ResetPassword> {
                           //elevation: 5,
                           onPressed: () {
                             if (_emailController.text != null) {
-                              _auth.resetPasswordLink(_emailController.text);
+                              passwordReset();
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => StudentLogin(),
+                                ),
+                              );
                             } else {
                               print('Geçerli bir email yazınız ');
                             }

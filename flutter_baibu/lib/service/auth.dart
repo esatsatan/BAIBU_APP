@@ -55,9 +55,9 @@ class AuthService {
     });
   }
 
-  void resetPasswordLink(String email) async {
-    User? user = _auth.currentUser;
+  Future resetPasswordLink(String email) async {
+    //User? user = _auth.currentUser;
 
-    await _auth.sendPasswordResetEmail(email: user!.email.toString());
+    await _auth.sendPasswordResetEmail(email: email);
   }
 }
