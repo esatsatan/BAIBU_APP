@@ -4,7 +4,6 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_baibu/service/auth.dart';
 
-
 import '../loginscreens/StudentLogin.dart';
 import 'AboutScreen.dart';
 import 'EditProfile.dart';
@@ -157,10 +156,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         onTap: () {
                           _authservice.signOut();
 
-                          Navigator.of(context).push(
+                          Navigator.pushAndRemoveUntil(
+                            context,
                             MaterialPageRoute(
-                              builder: (context) => StudentLogin(),
+                              builder: (BuildContext context) {
+                                return StudentLogin();
+                              },
                             ),
+                            (route) => false,
                           );
                         },
                         title: Text(

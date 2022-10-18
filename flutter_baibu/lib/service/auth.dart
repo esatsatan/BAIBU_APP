@@ -35,29 +35,4 @@ class AuthService {
 
     return user.user;
   }
-
-  checkCurrentAdminUser() {
-    if (_auth.currentUser!.email == 'murat.beken@ibu.edu.tr' &&
-        _auth.currentUser != null) {
-      return adminHomePage();
-    } else {
-      AdminLogin();
-    }
-  }
-
-  checkUser() {
-    _auth.authStateChanges().listen((User? user) {
-      if (user == null) {
-        print('user signed out');
-      } else {
-        print('User is signed in!');
-      }
-    });
-  }
-
-  Future resetPasswordLink(String email) async {
-    //User? user = _auth.currentUser;
-
-    await _auth.sendPasswordResetEmail(email: email);
-  }
 }

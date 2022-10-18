@@ -356,11 +356,15 @@ class _StudentLoginState extends State<StudentLogin> {
                                       .signIn(
                                           _emailCont.text, _passwordCont.text)
                                       .then((value) => {
-                                            Navigator.of(context).push(
+                                            Navigator.pushAndRemoveUntil(
+                                              context,
                                               MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const StudentHomeScreen(),
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return StudentHomeScreen();
+                                                },
                                               ),
+                                              (route) => false,
                                             ),
                                           });
                                 },

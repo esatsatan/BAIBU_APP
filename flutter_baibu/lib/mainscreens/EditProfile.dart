@@ -217,7 +217,19 @@ class _EditProfileState extends State<EditProfile> {
                   onPressed: () {
                     if (passwordController.text != null) {
                       _auth.currentUser!
-                          .updatePassword(passwordController.text);
+                          .updatePassword(passwordController.text.trim());
+                      _firestore
+                          .collection('Users')
+                          .doc(_auth.currentUser!.uid)
+                          .update(
+                        {"password": passwordController.text.trim()},
+                      );
+                      // Navigate ProfileScreen
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => ProfileScreen(),
+                        ),
+                      );
                     } else {
                       print('EMAİL VEya PASSWORD GİRİNİZ!!!!!');
                     }
