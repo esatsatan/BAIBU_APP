@@ -5,7 +5,7 @@ import 'package:flutter_baibu/loginscreens/StudentLogin.dart';
 import 'package:flutter_baibu/mainscreens/EditProfile.dart';
 import 'package:flutter_baibu/mainscreens/ProfileScreen.dart';
 import 'package:flutter_baibu/mainscreens/StudentHomeScreen.dart';
-import 'adminscreens/AdminDuyuruEkle/duyuruEkle.dart';
+import 'adminscreens/AddAnnouncement.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

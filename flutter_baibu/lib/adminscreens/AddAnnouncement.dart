@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_baibu/adminscreens/AdminHomePage/adminHomePage.dart';
-
+import 'package:flutter_baibu/adminscreens/AdminHomePage.dart';
 
 class duyuruEkle extends StatefulWidget {
   const duyuruEkle({Key? key}) : super(key: key);

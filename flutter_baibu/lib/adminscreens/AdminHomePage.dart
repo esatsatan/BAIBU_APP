@@ -3,9 +3,9 @@ import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_baibu/adminscreens/adminduyuru/NotificationDetailsAdmin.dart';
+import 'package:flutter_baibu/adminscreens/NotificationDetailsAdmin.dart';
 
-import '../../mainscreens/NotificationDetailScreen.dart';
+import '../mainscreens/NotificationDetailScreen.dart';
 
 class adminHomePage extends StatefulWidget {
   const adminHomePage({Key? key}) : super(key: key);
