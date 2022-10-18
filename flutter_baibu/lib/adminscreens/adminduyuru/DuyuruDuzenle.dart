@@ -3,8 +3,8 @@ import 'package:flutter_baibu/adminscreens/AdminHomePage/adminHomePage.dart';
 
 
 class DuyuruDuzenleme extends StatefulWidget {
-  const DuyuruDuzenleme({Key? key}) : super(key: key);
-
+  const DuyuruDuzenleme({Key? key, required this.duzenlenenVeri}) : super(key: key);
+  final Map duzenlenenVeri;
 
   @override
   State<DuyuruDuzenleme> createState() => _DuyuruDuzenlemeState();
