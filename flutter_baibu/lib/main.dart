@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_baibu/loginscreens/FirstScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_baibu/mainscreens/StudentHomeScreen.dart';
 import 'adminscreens/AdminDuyuruEkle/duyuruEkle.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
