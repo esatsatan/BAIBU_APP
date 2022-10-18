@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_baibu/service/auth.dart';
-import '../adminscreens/AdminHomePage/adminHomePage.dart';
+import '../adminscreens/AdminHomePage.dart';
 import 'StudentLogin.dart';
 
 class AdminLogin extends StatefulWidget {

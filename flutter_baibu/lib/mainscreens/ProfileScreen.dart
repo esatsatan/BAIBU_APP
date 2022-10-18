@@ -3,7 +3,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_baibu/service/auth.dart';
 
-import '../adminscreens/AdminProfilScreens/tasarim/profile_pic.dart';
+
 import '../loginscreens/StudentLogin.dart';
 import 'AboutScreen.dart';
 import 'EditProfile.dart';
@@ -49,7 +49,22 @@ class ProfileScreen extends StatelessWidget {
                       //fontSize: 24,
                       //),
                       //),
-                      ProfilePic(),
+                      Center(
+                        child: SizedBox(
+                          height: 115,
+                          width: 115,
+                          child: Stack(
+                            fit: StackFit.expand,
+                            clipBehavior: Clip.none,
+                            children: [
+                              CircleAvatar(
+                                backgroundImage: AssetImage(
+                                    "images/blank-profile-picture-973460__340.webp"),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
