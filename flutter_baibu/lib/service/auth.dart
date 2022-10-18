@@ -55,11 +55,6 @@ class AuthService {
     });
   }
 
-  verifyEmail() async {
-    // bool isEmailverified = false;
-    return true;
-  }
-
   void resetPasswordLink(String email) async {
     User? user = _auth.currentUser;
 

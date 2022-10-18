@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -8,8 +9,15 @@ import '../loginscreens/StudentLogin.dart';
 import 'AboutScreen.dart';
 import 'EditProfile.dart';
 
-class ProfileScreen extends StatelessWidget {
-  AuthService _authService = AuthService();
+class ProfileScreen extends StatefulWidget {
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  final _authservice = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +69,39 @@ class ProfileScreen extends StatelessWidget {
                   height: double.infinity,
                   child: Column(
                     children: [
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 15,
+                              bottom: 20,
+                              top: 10,
+                            ),
+                            child: Text(
+                              'Email : ',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              bottom: 8,
+                              left: 5,
+                            ),
+                            child: Text(
+                              _auth.currentUser!.email.toString(),
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                       ListTile(
                         onTap: () => Navigator.of(context).push(
                           MaterialPageRoute(
@@ -99,7 +140,7 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       ListTile(
                         onTap: () {
-                          _authService.signOut();
+                          _authservice.signOut();
 
                           Navigator.of(context).push(
                             MaterialPageRoute(

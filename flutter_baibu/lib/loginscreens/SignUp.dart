@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_baibu/loginscreens/SuccessScreen.dart';
+import 'package:flutter_baibu/mainscreens/StudentHomeScreen.dart';
 import 'package:flutter_baibu/service/auth.dart';
 
 import 'StudentLogin.dart';
@@ -18,15 +19,6 @@ class _SignUpState extends State<SignUp> {
   final _secondnameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-
-  /* FirebaseAuth _auth = FirebaseAuth.instance;
-
-  Future _createAccount() async {
-    final result = await _auth.createUserWithEmailAndPassword(
-        email: 'name@gmail.com', password: 'secondName');
-    return result.user;
-  }
-  */
 
   AuthService _authService = AuthService();
 
@@ -262,12 +254,11 @@ class _SignUpState extends State<SignUp> {
                                 _emailController.text,
                                 _passwordController.text);
 
-                            _authService.verifyEmail();
-
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => SuccessScreen()),
+                                builder: (context) => StudentLogin(),
+                              ),
                             );
                           },
                           child: Text(

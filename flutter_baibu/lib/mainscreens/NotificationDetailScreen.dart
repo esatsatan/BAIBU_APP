@@ -27,7 +27,7 @@ class DetailScreen extends StatelessWidget {
                       padding:
                           const EdgeInsets.only(top: 35, left: 10, bottom: 30),
                       child: Text(
-                        'Duyuru Baslik',
+                        gelenVeri['baslik'].toString(),
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 24,
@@ -38,7 +38,7 @@ class DetailScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 25, right: 25),
                       child: Text(
-                        'sdfsdfdfdfdfdfdfddfdfdfddffddfdfddfddddfddfdfdfdfssssssssssssssssssssssssssssssssfffffffffffff',
+                        gelenVeri['icerik'].toString(),
                         style: TextStyle(color: Colors.white, fontSize: 15),
                       ),
                     )

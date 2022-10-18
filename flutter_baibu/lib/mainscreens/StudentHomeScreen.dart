@@ -5,6 +5,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import '../utils/Navigation_drawer.dart';
 import '../utils/NotificationItem.dart';
+import 'NotificationDetailScreen.dart';
 
 class StudentHomeScreen extends StatefulWidget {
   const StudentHomeScreen({Key? key}) : super(key: key);
@@ -26,6 +27,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
 
     return Scaffold(
       drawer: NavigationDrawerWidget(),
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text(
           'Ana Sayfa',
@@ -68,7 +70,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                                   padding: const EdgeInsets.only(
                                       left: 20.0, top: 110.0),
                                   child: Text(
-                                    'Merhaba, Simge',
+                                    '        Merhaba',
                                     style: const TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
@@ -81,7 +83,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                                   width: 10,
                                 ),
                                 Text(
-                                  'Bilgisayar Mühendisliği',
+                                  '        Bilgisayar Mühendisliği',
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 18,
@@ -100,9 +102,18 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                                     .map((DocumentSnapshot document) {
                                       Map<String, dynamic> data = document
                                           .data()! as Map<String, dynamic>;
-                                      return CardItem(
-                                        title: data['baslik'] as String,
-                                        publisher: data['yayinlayan'] as String,
+                                      return GestureDetector(
+                                        onTap: () => Navigator.of(context)
+                                            .push(MaterialPageRoute(
+                                          builder: (context) => DetailScreen(
+                                            gelenVeri: data,
+                                          ),
+                                        )),
+                                        child: CardItem(
+                                          title: data['baslik'] as String,
+                                          publisher:
+                                              data['yayinlayan'] as String,
+                                        ),
                                       );
                                     })
                                     .toList()

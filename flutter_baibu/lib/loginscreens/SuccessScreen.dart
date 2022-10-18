@@ -1,102 +1,108 @@
+import 'dart:async';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_baibu/mainscreens/StudentHomeScreen.dart';
+import 'package:flutter_baibu/service/auth.dart';
 
 import 'StudentLogin.dart';
 
-class SuccessScreen extends StatelessWidget {
+class SuccessScreen extends StatefulWidget {
   const SuccessScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light,
-        child: GestureDetector(
-          child: Stack(
-            children: [
-              Container(
-                height: double.infinity,
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Color(0xff151543),
-                        Color(0xff151543),
-                        const Color(0xff151543),
-                        Color(0xff151543),
-                      ]),
-                ),
-                child: SingleChildScrollView(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 25,
-                    vertical: 120,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const SizedBox(
-                        height: 130,
-                      ),
-                      Image.asset(
-                        'images/successIcon.png',
-                        width: 90,
-                        height: 90,
-                        fit: BoxFit.cover,
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      const Text(
-                        'Başarılı',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      const Text(
-                        'Tebrikler kaydınız oluşturulmuştur.',
-                        style: TextStyle(
-                            color: Color.fromARGB(255, 83, 82, 82),
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Container(
-                        padding: EdgeInsets.symmetric(vertical: 25),
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          //elevation: 5,
-                          onPressed: () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => StudentLogin(),
-                            ),
-                          ),
-                          //padding: EdgeInsets.all(15),
-                          //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                          //color: Color(0xff0364f6),
-                          child: Text(
-                            'Devam',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+  State<SuccessScreen> createState() => _SuccessScreenState();
+}
+
+class _SuccessScreenState extends State<SuccessScreen> {
+  bool isEmailVerified = false;
+  Timer? timer;
+  AuthService _auth = AuthService();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    isEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
+
+    if (!isEmailVerified) {
+      sendEmailVerification();
+
+      Timer.periodic(
+        Duration(seconds: 3),
+        (_) => checkEmailVerified(),
+      );
+    }
   }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
+
+  Future checkEmailVerified() async {
+    // call after email verification
+    await FirebaseAuth.instance.currentUser!.reload();
+
+    setState(() {
+      isEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
+    });
+
+    if (isEmailVerified) timer?.cancel();
+  }
+
+  Future sendEmailVerification() async {
+    try {
+      final user = FirebaseAuth.instance.currentUser!;
+      await user.sendEmailVerification();
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) => isEmailVerified
+      ? StudentHomeScreen()
+      : Scaffold(
+          backgroundColor: Color(0xff151543),
+          appBar: AppBar(
+            backgroundColor: Color(0xff151543),
+            title: Text('Mail Adresinizi doğrulayın'),
+          ),
+          body: Padding(
+            padding: EdgeInsets.all(16),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Mail Adresinize doğrulama linki gönderildi.',
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(
+                  height: 25,
+                ),
+                ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xff151543),
+                  ),
+                  onPressed: sendEmailVerification,
+                  icon: Icon(
+                    Icons.email,
+                    size: 30,
+                  ),
+                  label: Text(
+                    'Tekrar Gönder',
+                    style: TextStyle(fontSize: 24),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
 }
