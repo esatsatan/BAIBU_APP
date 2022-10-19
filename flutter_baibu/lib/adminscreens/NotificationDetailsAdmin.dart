@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_baibu/adminscreens/AdminHomePage.dart';
 import 'package:flutter_baibu/adminscreens/DuyuruDuzenle.dart';
 
 class DetailScreenAdmin extends StatefulWidget {
-  const DetailScreenAdmin({Key? key, required this.gelenVeri})
-      : super(key: key);
-  final Map gelenVeri;
+  const DetailScreenAdmin({Key? key, required this.gelenVeri}) : super(key: key);
+    final Map gelenVeri;
   @override
   State<DetailScreenAdmin> createState() => _DetailScreenAdminState();
 }
@@ -22,12 +22,10 @@ class _DetailScreenAdminState extends State<DetailScreenAdmin> {
             icon: const Icon(Icons.delete),
             tooltip: 'Sil',
             onPressed: (() {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const DuyuruDuzenleme(
-                            duzenlenenVeri: {},
-                          )));
+               Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const adminHomePage()));
             }),
           )
         ],
@@ -47,8 +45,8 @@ class _DetailScreenAdminState extends State<DetailScreenAdmin> {
                       padding:
                           const EdgeInsets.only(top: 35, left: 10, bottom: 30),
                       child: Text(
-                        widget.gelenVeri['baslik'].toString(),
-                        style: TextStyle(
+                        widget.gelenVeri['baslik'].toString(),    
+                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
