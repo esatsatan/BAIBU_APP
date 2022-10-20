@@ -1,8 +1,10 @@
 import 'dart:ffi';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_baibu/service/auth.dart';
 import '../utils/Navigation_drawer.dart';
 import '../utils/NotificationItem.dart';
 import 'NotificationDetailScreen.dart';
@@ -19,19 +21,28 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('Announcement').snapshots();
 
+  String name = "";
+
   late Map alinanVeri;
 
   @override
+  @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-
     return Scaffold(
       drawer: NavigationDrawerWidget(),
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text(
-          'Ana Sayfa',
-          style: TextStyle(color: Colors.white),
+        title: Card(
+          child: TextField(
+            decoration: InputDecoration(
+                prefixIcon: Icon(Icons.search), hintText: 'Search..'),
+            onChanged: (value) {
+              setState(() {
+                name = value;
+              });
+            },
+          ),
         ),
         backgroundColor: Color(0xff151543),
         elevation: 5.0,
@@ -102,6 +113,24 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                                     .map((DocumentSnapshot document) {
                                       Map<String, dynamic> data = document
                                           .data()! as Map<String, dynamic>;
+
+                                      if (name.isEmpty) {
+                                        return CardItem(
+                                            title: data['baslik'] as String,
+                                            publisher:
+                                                data['yayinlayan'] as String);
+                                      }
+
+                                      if (data['baslik']
+                                          .toString()
+                                          .toLowerCase()
+                                          .startsWith(name.toLowerCase())) {
+                                        return CardItem(
+                                            title: data['baslik'] as String,
+                                            publisher:
+                                                data['yayinlayan'] as String);
+                                      }
+
                                       return GestureDetector(
                                         onTap: () => Navigator.of(context)
                                             .push(MaterialPageRoute(

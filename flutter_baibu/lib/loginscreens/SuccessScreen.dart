@@ -40,6 +40,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
   @override
   void dispose() {
     timer?.cancel();
+
     super.dispose();
   }
 
@@ -81,6 +82,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
                   'Mail Adresinize doğrulama linki gönderildi.',
                   style: TextStyle(
                     fontSize: 20,
+                    color: Colors.white,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -89,7 +91,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
                 ),
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xff151543),
+                    backgroundColor: Colors.white,
                   ),
                   onPressed: sendEmailVerification,
                   icon: Icon(
