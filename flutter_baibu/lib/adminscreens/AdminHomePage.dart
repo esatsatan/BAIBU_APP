@@ -15,6 +15,7 @@ class adminHomePage extends StatefulWidget {
 }
 
 class _adminHomePageState extends State<adminHomePage> {
+  String name = "";
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('Announcement').snapshots();
@@ -56,6 +57,11 @@ class _adminHomePageState extends State<adminHomePage> {
                           ),
                           hintText: 'ARAMA',
                           hintStyle: TextStyle(fontSize: 15)),
+                      onChanged: (val) {
+                        setState(() {
+                          name = val;
+                        });
+                      },
                     ),
                   ),
                 ),
@@ -111,17 +117,9 @@ class _adminHomePageState extends State<adminHomePage> {
                   .map((DocumentSnapshot document) {
                     Map<String, dynamic> data =
                         document.data()! as Map<String, dynamic>;
-                    return GestureDetector(
-                      onTap: () => {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => DetailScreenAdmin(
-                                      gelenVeri: data,
-                                    )))
-                      },
-                      child: Container(
-                        height: 70,
+                    if (name.isEmpty) {
+                      return Container(
+                                                height: 70,
                         width: 15,
                         margin: EdgeInsets.all(10),
                         decoration: BoxDecoration(
@@ -145,23 +143,100 @@ class _adminHomePageState extends State<adminHomePage> {
                               ), //BoxShadow
                             ]),
                         child: ListTile(
-                          leading: CircleAvatar(
-                            child: Image.asset(
-                              'images/birincilogo_3559696.png',
-                              height: 100,
-                              width: 100,
+                          title: Text(
+                            data['baslik'],
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: Colors.black,
                             ),
-                            backgroundColor: Colors.white,
                           ),
-                          title: Text(data['baslik'].toString(),
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 15)),
-                          subtitle: Text(data['yayinlayan'].toString(),
+                          subtitle: Text(
+                              data['yayinlayan'],
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                               style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 15,
-                              )),
+                                  color: Colors.black54,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            leading: CircleAvatar(
+                              child: Image.asset(
+                                'images/birincilogo_3559696.png',
+                                height: 100,
+                                width: 100,
+                              ),
+                              backgroundColor: Colors.white,
+                            ),
                         ),
+                      );
+                    }
+                    if (data['baslik']
+                        .toString()
+                        .toLowerCase()
+                        .startsWith(name.toLowerCase())) {
+                      return Container(                        height: 70,
+                        width: 15,
+                        margin: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.white,
+                                offset: const Offset(
+                                  3.0,
+                                  3.0,
+                                ),
+                                blurRadius: 7.0,
+                                spreadRadius: 1.0,
+                              ), //BoxShadow
+                              BoxShadow(
+                                color: Colors.white,
+                                offset: const Offset(0.0, 0.0),
+                                blurRadius: 0.0,
+                                spreadRadius: 0.0,
+                              ), //BoxShadow
+                            ]),
+                        child: ListTile(
+                          title: Text(
+                            data['baslik'],
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: Colors.black,
+                            ),
+                          ),
+                          subtitle: Text(
+                              data['yayinlayan'],
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  color: Colors.black54,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            leading: CircleAvatar(
+                              child: Image.asset(
+                                'images/birincilogo_3559696.png',
+                                height: 100,
+                                width: 100,
+                              ),
+                              backgroundColor: Colors.white,
+                            ),
+                        ),
+                      );
+                    }
+                    return GestureDetector(
+                      onTap: () => {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DetailScreenAdmin(
+                                      gelenVeri: data,
+                                    )))
+                      },
+                      child: Container(
                       ),
                     );
                   })
