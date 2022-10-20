@@ -202,10 +202,12 @@ Widget buildAcademicianButton(BuildContext context) {
 }
 
 class _StudentLoginState extends State<StudentLogin> {
-  final _emailCont = TextEditingController();
-  final _passwordCont = TextEditingController();
+  final emailCont = TextEditingController();
+  final passwordCont = TextEditingController();
 
   AuthService _authService = AuthService();
+
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -221,69 +223,72 @@ class _StudentLoginState extends State<StudentLogin> {
               child: GestureDetector(
                 child: Stack(
                   children: [
-                    Container(
-                      height: double.infinity,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              Color(0xff151543),
-                              Color(0xff151543),
-                              Color(0xff151543),
-                              Color(0xff151543),
-                            ]),
-                      ),
-                      child: SingleChildScrollView(
-                        physics: AlwaysScrollableScrollPhysics(),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 25,
-                          vertical: 120,
+                    Form(
+                      key: formKey,
+                      child: Container(
+                        height: double.infinity,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Color(0xff151543),
+                                Color(0xff151543),
+                                Color(0xff151543),
+                                Color(0xff151543),
+                              ]),
                         ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Giriş Yap',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 40,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              height: 50,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Email',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(height: 10),
-                                Container(
-                                  alignment: Alignment.centerLeft,
-                                  decoration: BoxDecoration(
-                                      color: Color.fromARGB(255, 228, 228, 231),
-                                      borderRadius: BorderRadius.circular(10),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            color: Colors.black26,
-                                            blurRadius: 6,
-                                            offset: Offset(0, 2)),
-                                      ]),
-                                  height: 60,
-                                  child: TextField(
-                                    controller: _emailCont,
-                                    keyboardType: TextInputType.emailAddress,
+                        child: SingleChildScrollView(
+                          physics: AlwaysScrollableScrollPhysics(),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 25,
+                            vertical: 120,
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Giriş Yap',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 40,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                height: 50,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Email',
                                     style: TextStyle(
-                                      color: Colors.black87,
-                                    ),
-                                    decoration: InputDecoration(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(height: 10),
+                                  Container(
+                                    alignment: Alignment.centerLeft,
+                                    decoration: BoxDecoration(
+                                        color:
+                                            Color.fromARGB(255, 228, 228, 231),
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: [
+                                          BoxShadow(
+                                              color: Colors.black26,
+                                              blurRadius: 6,
+                                              offset: Offset(0, 2)),
+                                        ]),
+                                    height: 60,
+                                    child: TextFormField(
+                                      controller: emailCont,
+                                      keyboardType: TextInputType.emailAddress,
+                                      style: TextStyle(
+                                        color: Colors.black87,
+                                      ),
+                                      decoration: InputDecoration(
                                         border: InputBorder.none,
                                         contentPadding:
                                             EdgeInsets.only(top: 14),
@@ -294,42 +299,50 @@ class _StudentLoginState extends State<StudentLogin> {
                                         hintText: 'Email',
                                         hintStyle: TextStyle(
                                           color: Colors.black38,
-                                        )),
-                                  ),
-                                )
-                              ],
-                            ),
-                            SizedBox(height: 20),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Password',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(height: 10),
-                                Container(
-                                  alignment: Alignment.centerLeft,
-                                  decoration: BoxDecoration(
-                                      color: Color(0xe4f6f6f6),
-                                      borderRadius: BorderRadius.circular(10),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            color: Colors.black26,
-                                            blurRadius: 6,
-                                            offset: Offset(0, 2)),
-                                      ]),
-                                  height: 60,
-                                  child: TextField(
-                                    controller: _passwordCont,
-                                    obscureText: true,
-                                    style: TextStyle(
-                                      color: Colors.black87,
+                                        ),
+                                      ),
+                                      validator: ((value) {
+                                        if (value!.isEmpty) {
+                                          return "Geçerli bir mail adresi giriniz";
+                                        } else {
+                                          return null;
+                                        }
+                                      }),
                                     ),
-                                    decoration: InputDecoration(
+                                  )
+                                ],
+                              ),
+                              SizedBox(height: 20),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Password',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(height: 10),
+                                  Container(
+                                    alignment: Alignment.centerLeft,
+                                    decoration: BoxDecoration(
+                                        color: Color(0xe4f6f6f6),
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: [
+                                          BoxShadow(
+                                              color: Colors.black26,
+                                              blurRadius: 6,
+                                              offset: Offset(0, 2)),
+                                        ]),
+                                    height: 60,
+                                    child: TextFormField(
+                                      controller: passwordCont,
+                                      obscureText: true,
+                                      style: TextStyle(
+                                        color: Colors.black87,
+                                      ),
+                                      decoration: InputDecoration(
                                         border: InputBorder.none,
                                         contentPadding:
                                             EdgeInsets.only(top: 14),
@@ -340,51 +353,62 @@ class _StudentLoginState extends State<StudentLogin> {
                                         hintText: 'Password',
                                         hintStyle: TextStyle(
                                           color: Colors.black38,
-                                        )),
+                                        ),
+                                      ),
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return "Geçerli bir şifre giriniz";
+                                        } else {
+                                          return null;
+                                        }
+                                      },
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                            buildForgotPasswordButton(context),
-                            Container(
-                              padding: EdgeInsets.symmetric(vertical: 25),
-                              width: double.infinity,
-                              child: ElevatedButton(
-                                //elevation: 5,
-                                onPressed: () {
-                                  _authService
-                                      .signIn(
-                                          _emailCont.text, _passwordCont.text)
-                                      .then((value) => {
-                                            Navigator.pushAndRemoveUntil(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder:
-                                                    (BuildContext context) {
-                                                  return StudentHomeScreen();
-                                                },
-                                              ),
-                                              (route) => false,
-                                            ),
-                                          });
-                                },
-                                //padding: EdgeInsets.all(15),
-                                //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                                //color: Color(0xff0364f6),
-                                child: Text(
-                                  'Giriş Yap',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
+                                ],
+                              ),
+                              buildForgotPasswordButton(context),
+                              Container(
+                                padding: EdgeInsets.symmetric(vertical: 25),
+                                width: double.infinity,
+                                child: ElevatedButton(
+                                  //elevation: 5,
+                                  onPressed: () {
+                                    if (formKey.currentState!.validate()) {
+                                      _authService
+                                          .signIn(
+                                              emailCont.text, passwordCont.text)
+                                          .then((value) => {
+                                                Navigator.pushAndRemoveUntil(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return StudentHomeScreen();
+                                                    },
+                                                  ),
+                                                  (route) => false,
+                                                ),
+                                              });
+                                    }
+                                  },
+                                  //padding: EdgeInsets.all(15),
+                                  //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                  //color: Color(0xff0364f6),
+                                  child: Text(
+                                    'Giriş Yap',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            buildSignUpButton(context),
-                            SizedBox(height: 20),
-                            buildAcademicianButton(context),
-                          ],
+                              buildSignUpButton(context),
+                              SizedBox(height: 20),
+                              buildAcademicianButton(context),
+                            ],
+                          ),
                         ),
                       ),
                     ),
