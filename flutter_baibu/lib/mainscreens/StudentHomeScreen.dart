@@ -115,22 +115,36 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                                           .data()! as Map<String, dynamic>;
 
                                       if (name.isEmpty) {
-                                        return CardItem(
-                                            title: data['baslik'] as String,
-                                            publisher:
-                                                data['yayinlayan'] as String);
+                                        return GestureDetector(
+                                          onTap: () => Navigator.of(context)
+                                              .push(MaterialPageRoute(
+                                            builder: (context) => DetailScreen(
+                                              gelenVeri: data,
+                                            ),
+                                          )),
+                                          child: CardItem(
+                                              title: data['baslik'] as String,
+                                              publisher:
+                                                  data['yayinlayan'] as String),
+                                        );
                                       }
-
                                       if (data['baslik']
                                           .toString()
                                           .toLowerCase()
                                           .startsWith(name.toLowerCase())) {
-                                        return CardItem(
-                                            title: data['baslik'] as String,
-                                            publisher:
-                                                data['yayinlayan'] as String);
+                                        return GestureDetector(
+                                          onTap: () => Navigator.of(context)
+                                              .push(MaterialPageRoute(
+                                            builder: (context) => DetailScreen(
+                                              gelenVeri: data,
+                                            ),
+                                          )),
+                                          child: CardItem(
+                                              title: data['baslik'] as String,
+                                              publisher:
+                                                  data['yayinlayan'] as String),
+                                        );
                                       }
-
                                       return GestureDetector(
                                         onTap: () => Navigator.of(context)
                                             .push(MaterialPageRoute(
@@ -138,11 +152,13 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                                             gelenVeri: data,
                                           ),
                                         )),
-                                        child: CardItem(
-                                          title: data['baslik'] as String,
-                                          publisher:
-                                              data['yayinlayan'] as String,
-                                        ),
+                                        /*  child: CardItem(
+                                            title: data['baslik'] as String,
+                                            publisher:
+                                                data['yayinlayan'] as String,
+                                          ), 
+                                        */
+                                        child: Container(),
                                       );
                                     })
                                     .toList()
