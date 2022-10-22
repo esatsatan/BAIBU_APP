@@ -4,8 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_baibu/service/auth.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -24,7 +22,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final _authservice = AuthService();
 
   File? image;
-  UploadTask? uploadTask;
+  String? photoUrl;
 
   Future pickImage(ImageSource source) async {
     try {
@@ -35,15 +33,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       setState(() {
         this.image = imageTemporary;
       });
-      //uploadFile();
-      final path = '${_auth.currentUser!.uid}.jpg';
-      final file = File(image!.path);
-
-      final ref = FirebaseStorage.instance.ref().child(path);
-
-      await ref.putFile(file);
-      final url = await ref.getDownloadURL();
-      print('Download URL : $url');
     } on PlatformException catch (e) {
       print('Failed to pick image : $e');
     }
@@ -53,11 +42,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final path = '${_auth.currentUser!.uid}.jpg';
     final file = File(image!.path);
 
-    final ref = FirebaseStorage.instance.ref().child('images/');
+    final ref = FirebaseStorage.instance
+        .ref()
+        .child('images/${_auth.currentUser!.uid}.jpg');
 
-    ref.child(path).putFile(file);
-    final url = ref.getDownloadURL();
-    print('Download URL : $url');
+    await ref.putFile(file);
+    final url = await ref.getDownloadURL();
+    print('Download URLLLLLLLLLLLLLLLLLLLLL : $url');
+
+    setState(() {
+      photoUrl = url.toString();
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
   }
 
   @override
@@ -98,23 +99,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             fit: StackFit.expand,
                             clipBehavior: Clip.none,
                             children: [
-                              image != null
-                                  ? GestureDetector(
-                                      onTap: () =>
-                                          pickImage(ImageSource.gallery),
-                                      child: ClipOval(
-                                        child: Image.file(
-                                          image!,
-                                          width: 200,
-                                          height: 200,
-                                          fit: BoxFit.cover,
-                                        ),
+                              photoUrl != null
+                                  ? ClipOval(
+                                      child: Image.network(
+                                        photoUrl!,
+                                        width: 200,
+                                        height: 200,
+                                        fit: BoxFit.cover,
                                       ),
                                     )
-                                  : GestureDetector(
-                                      onTap: () =>
-                                          pickImage(ImageSource.gallery),
-                                      child: FlutterLogo(size: 200)),
+                                  : FlutterLogo(
+                                      size: 200,
+                                    )
                             ],
                           ),
                         ),
@@ -215,6 +211,38 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         },
                         title: Text(
                           'Çıkış yap',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        trailing: Icon(
+                          Icons.chevron_right,
+                          color: Colors.white,
+                        ),
+                      ),
+                      ListTile(
+                        onTap: () {
+                          pickImage(ImageSource.gallery);
+                        },
+                        title: Text(
+                          'Galeriden Fotoğraf Seç',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        trailing: Icon(
+                          Icons.chevron_right,
+                          color: Colors.white,
+                        ),
+                      ),
+                      ListTile(
+                        onTap: () {
+                          uploadFile();
+                        },
+                        title: Text(
+                          'Fotoğrafı Kaydet',
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
