@@ -1,8 +1,13 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_baibu/service/auth.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../loginscreens/StudentLogin.dart';
 import 'AboutScreen.dart';
@@ -17,6 +22,43 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   final _authservice = AuthService();
+
+  File? image;
+  UploadTask? uploadTask;
+
+  Future pickImage(ImageSource source) async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (image == null) return;
+      final imageTemporary = File(image.path);
+
+      setState(() {
+        this.image = imageTemporary;
+      });
+      //uploadFile();
+      final path = '${_auth.currentUser!.uid}.jpg';
+      final file = File(image!.path);
+
+      final ref = FirebaseStorage.instance.ref().child(path);
+
+      await ref.putFile(file);
+      final url = await ref.getDownloadURL();
+      print('Download URL : $url');
+    } on PlatformException catch (e) {
+      print('Failed to pick image : $e');
+    }
+  }
+
+  Future uploadFile() async {
+    final path = '${_auth.currentUser!.uid}.jpg';
+    final file = File(image!.path);
+
+    final ref = FirebaseStorage.instance.ref().child('images/');
+
+    ref.child(path).putFile(file);
+    final url = ref.getDownloadURL();
+    print('Download URL : $url');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,14 +90,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       SizedBox(
                         height: 50,
                       ),
-                      // Text(
-                      // 'Profil',
-                      //style: TextStyle(
-                      //color: Colors.white,
-                      //fontWeight: FontWeight.bold,
-                      //fontSize: 24,
-                      //),
-                      //),
                       Center(
                         child: SizedBox(
                           height: 115,
@@ -64,10 +98,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             fit: StackFit.expand,
                             clipBehavior: Clip.none,
                             children: [
-                              CircleAvatar(
-                                backgroundImage: AssetImage(
-                                    "images/blank-profile-picture-973460__340.webp"),
-                              ),
+                              image != null
+                                  ? GestureDetector(
+                                      onTap: () =>
+                                          pickImage(ImageSource.gallery),
+                                      child: ClipOval(
+                                        child: Image.file(
+                                          image!,
+                                          width: 200,
+                                          height: 200,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    )
+                                  : GestureDetector(
+                                      onTap: () =>
+                                          pickImage(ImageSource.gallery),
+                                      child: FlutterLogo(size: 200)),
                             ],
                           ),
                         ),
