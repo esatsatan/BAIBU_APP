@@ -1,8 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_baibu/adminscreens/AdminHomePage.dart';
-import 'package:flutter_baibu/loginscreens/AdminLogin.dart';
-import 'package:flutter_baibu/loginscreens/StudentLogin.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -30,7 +27,8 @@ class AuthService {
       'username': name,
       'usersurname': surname,
       'email': email,
-      'password': password
+      'password': password,
+      'photoUrl': '',
     });
 
     return user.user;
