@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -18,11 +20,13 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   final _authservice = AuthService();
 
   File? image;
   String? photoUrl;
+  String? url;
 
   Future pickImage(ImageSource source) async {
     try {
@@ -48,17 +52,42 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     await ref.putFile(file);
     final url = await ref.getDownloadURL();
-    print('Download URLLLLLLLLLLLLLLLLLLLLL : $url');
 
     setState(() {
       photoUrl = url.toString();
     });
+
+    _firestore
+        .collection('Users')
+        .doc(_auth.currentUser!.uid.toString())
+        .update({'photoUrl': photoUrl});
+  }
+
+  downloadImage() {
+    final docRef =
+        _firestore.collection('Users').doc(_auth.currentUser!.uid.toString());
+    docRef.get().then(
+      (DocumentSnapshot doc) {
+        if (doc.get('photoUrl').toString() != '') {
+          final data = doc.get('photoUrl');
+
+          setState(() {
+            photoUrl = data.toString();
+          });
+        }
+
+        onError:
+        (e) => print("Error getting document: $e");
+      },
+    );
   }
 
   @override
-  void initState() {
+  initState() {
     // TODO: implement initState
     super.initState();
+
+    downloadImage();
   }
 
   @override
@@ -110,7 +139,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     )
                                   : FlutterLogo(
                                       size: 200,
-                                    )
+                                    ),
                             ],
                           ),
                         ),
@@ -240,6 +269,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ListTile(
                         onTap: () {
                           uploadFile();
+                          //savePhotoUrl();
                         },
                         title: Text(
                           'Fotoğrafı Kaydet',
