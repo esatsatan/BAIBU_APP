@@ -25,3 +25,12 @@ The screens used by the students are as follows,
 ![PROFİLE_SCREEN](https://user-images.githubusercontent.com/57503835/214564775-b3d49687-b4e2-4855-ba45-ed860f7a2544.png)
 ![EDİT_PROFİLE](https://user-images.githubusercontent.com/57503835/214564986-fe3f353e-52e4-4233-9ad8-e93a2eef4efe.png)
 ![ABOUT_BAIBU](https://user-images.githubusercontent.com/57503835/214564993-10ae6b6a-8752-4eda-a247-965d21dc1db6.png)
+
+The screens used by the instructors are as follows,
+
+![INSTRUCTOR_HOME](https://user-images.githubusercontent.com/57503835/215580927-d778324e-91d5-4fff-b51e-bda06f737585.png)
+![INSTRUCTOR_NACDRAWER](https://user-images.githubusercontent.com/57503835/215581068-47477f53-ef78-4a53-b302-20183652fb38.png)
+![INSTRUCTOR_ADDNOTİFİCATİON](https://user-images.githubusercontent.com/57503835/215581332-a2a58ca8-319c-47b7-bb9e-8dd3cd442f1b.png)
+
+![INSTRUCTOR_EDİT](https://user-images.githubusercontent.com/57503835/215581349-e8b1f0f4-ccde-4975-9403-053f8cec322b.png)
+
