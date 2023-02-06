@@ -1,9 +1,9 @@
 # BAIBU_APP
 
-Bolu Abant İzzet Baysal Üniversitesi Bilgisayar Mühendisliği bölümü için  geliştirdiğim projedir. Uygulama mobil tabanlı cross platform bir uygulamadır ve Visual Studio ortamında Flutter ile geliştirilmiştir. Projenin amacı fakültedeki öğrencilerin duyurulardan ve etkinliklerden kısa sürede haberdar olmasıdır. Uygulamada öğrenci girişi ve duyuru yayınlama veya düzenleme hakkına sahip eğitmen girişi bulunmaktadır. Proje dart dili ile geliştirilmiştir.
+Bolu Abant İzzet Baysal Üniversitesi Bilgisayar Mühendisliği bölümü için  geliştirdiğimiz projedir. Uygulama mobil tabanlı cross platform bir uygulamadır ve Visual Studio ortamında Flutter ile geliştirilmiştir. Projenin amacı fakültedeki öğrencilerin duyurulardan ve etkinliklerden kısa sürede haberdar olmasıdır. Uygulamada öğrenci girişi ve duyuru yayınlama veya düzenleme hakkına sahip eğitmen girişi bulunmaktadır. Proje dart dili ile geliştirilmiştir.
 Ayrıca projede veri tabanı olarak Google Firebase veritabanı kullanılmıştır. Google Firebase Authentication ve  cloud firestore kullanılmıştır. 
 
-This is the project that I developed for Bolu Abant İzzet Baysal University Computer Engineering Department. The application is a mobile-based cross platform application and it was developed with Flutter in the Visual Studio environment. The aim of the project is to make the students in the faculty aware of the announcements and events in a short time. In the application, there is a student login and an instructor login who has the right to publish or edit announcements. The project was developed with dart language.
+This is the project that we developed for Bolu Abant İzzet Baysal University Computer Engineering Department. The application is a mobile-based cross platform application and it was developed with Flutter in the Visual Studio environment. The aim of the project is to make the students in the faculty aware of the announcements and events in a short time. In the application, there is a student login and an instructor login who has the right to publish or edit announcements. The project was developed with dart language.
 In addition, Google Firebase database was used as the database in the project. Google Firebase Authentication and cloud firestore are used.
 
 Öğrencilerin kullandığı ekranlar aşşağıdaki gibidir,
